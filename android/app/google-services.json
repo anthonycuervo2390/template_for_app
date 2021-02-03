@@ -1,0 +1,121 @@
+{
+  "project_info": {
+    "project_number": "179793706533",
+    "project_id": "kabod-f7b03",
+    "storage_bucket": "kabod-f7b03.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:179793706533:android:b2b68abe23d4bb1f8e09cc",
+        "android_client_info": {
+          "package_name": "com.jeancuervo.firestore_demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "179793706533-0hbu9as7nc6dakqc0et2u9p2fga07cel.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jeancuervo.firestore_demo",
+            "certificate_hash": "c92b7c9b1ee5aca91552b9d05d4ce33a3b1b4e4d"
+          }
+        },
+        {
+          "client_id": "179793706533-8f3pt756lhli9hv68l2ltc4v7gq8fs6g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh1NXwsz3Zh8Um-kkW_EZncqIj_K4FXo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "179793706533-8f3pt756lhli9hv68l2ltc4v7gq8fs6g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:179793706533:android:01f7cb918bffc3218e09cc",
+        "android_client_info": {
+          "package_name": "com.jeancuervo.kabod2_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "179793706533-e2gbim7tv8m7vqh981g5676ifq8labok.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jeancuervo.kabod2_app",
+            "certificate_hash": "c92b7c9b1ee5aca91552b9d05d4ce33a3b1b4e4d"
+          }
+        },
+        {
+          "client_id": "179793706533-8f3pt756lhli9hv68l2ltc4v7gq8fs6g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh1NXwsz3Zh8Um-kkW_EZncqIj_K4FXo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "179793706533-8f3pt756lhli9hv68l2ltc4v7gq8fs6g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:179793706533:android:aa03d4cd7860c6da8e09cc",
+        "android_client_info": {
+          "package_name": "com.jeancuervo.kabod_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "179793706533-f9f9p6b8h9cv1t4dq8pglrcrbgn3t6l8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jeancuervo.kabod_app",
+            "certificate_hash": "c92b7c9b1ee5aca91552b9d05d4ce33a3b1b4e4d"
+          }
+        },
+        {
+          "client_id": "179793706533-8f3pt756lhli9hv68l2ltc4v7gq8fs6g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh1NXwsz3Zh8Um-kkW_EZncqIj_K4FXo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "179793706533-8f3pt756lhli9hv68l2ltc4v7gq8fs6g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
