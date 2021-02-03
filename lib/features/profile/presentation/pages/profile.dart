@@ -34,18 +34,18 @@ class UserProfile extends StatelessWidget {
                     coverImage: user.photoUrl != null
                         ? NetworkImage(user.photoUrl)
                         : CachedNetworkImageProvider(
-                            "http://via.placeholder.com/350x150"),
-                    title: user.name,
-                    actions: [
-                      MaterialButton(
-                        color: Colors.white,
-                        shape: CircleBorder(),
-                        elevation: 0,
-                        child: Icon(Icons.edit),
-                        onPressed: () {},
-                      ),
-                    ],
+                            "http://via.placeholder.com/350x150",
+                          ),
                   ),
+                  if (user.name != null) ...[
+                    Center(
+                      child: Text(
+                        user.name,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
+                    )
+                  ],
                   SizedBox(height: 10.0),
                   UserInfo(),
                 ],
@@ -84,65 +84,70 @@ class UserInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10),
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.only(left: 8.0, bottom: 4.0),
-            alignment: Alignment.topLeft,
-            child: Text(
-              'User Information',
-              style: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.w500,
-                fontSize: 16,
-              ),
-              textAlign: TextAlign.left,
-            ),
-          ),
-          Card(
-            child: Container(
+      child: Consumer(builder: (context, watch, _) {
+        final user = watch(userRepoProvider).user;
+        return Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.only(left: 8.0, bottom: 4.0),
               alignment: Alignment.topLeft,
-              padding: EdgeInsets.all(15),
-              child: Column(
-                children: [
-                  Column(
-                    children: [
-                      ...ListTile.divideTiles(
-                        color: Colors.grey,
-                        tiles: [
-                          ListTile(
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 4),
-                            leading: Icon(Icons.home),
-                            title: Text('Address'),
-                            subtitle: Text('Barcelona'),
-                          ),
-                          ListTile(
-                            leading: Icon(Icons.email),
-                            title: Text('Email'),
-                            subtitle: Text('user@email.com'),
-                          ),
-                          ListTile(
-                            leading: Icon(Icons.phone),
-                            title: Text('Phone'),
-                            subtitle: Text('123-456-789'),
-                          ),
-                          ListTile(
-                            leading: Icon(Icons.email),
-                            title: Text('About me'),
-                            subtitle: Text(
-                                'This is a about me link and you can know about me in this section.'),
-                          ),
-                        ],
-                      ),
-                    ],
-                  )
-                ],
+              child: Text(
+                'User Information',
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                ),
+                textAlign: TextAlign.left,
               ),
             ),
-          )
-        ],
-      ),
+            Card(
+              child: Container(
+                alignment: Alignment.topLeft,
+                padding: EdgeInsets.all(15),
+                child: Column(
+                  children: [
+                    Column(
+                      children: [
+                        ...ListTile.divideTiles(
+                          color: Colors.grey,
+                          tiles: [
+                            ListTile(
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 4),
+                              leading: Icon(Icons.home),
+                              title: Text('Address'),
+                              subtitle: Text(user?.address ??
+                                  "please complete your personal information"),
+                            ),
+                            ListTile(
+                              leading: Icon(Icons.email),
+                              title: Text('Email'),
+                              subtitle: Text(user?.email),
+                            ),
+                            ListTile(
+                              leading: Icon(Icons.phone),
+                              title: Text('Phone'),
+                              subtitle: Text(user?.phone ??
+                                  'please complete your personal information'),
+                            ),
+                            ListTile(
+                              leading: Icon(Icons.calendar_today),
+                              title: Text('Joined date'),
+                              subtitle: Text(
+                                  '${user.registrationDate.day.toString()}-${user.registrationDate.month.toString()}-${user.registrationDate.year.toString()}'),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
+        );
+      }),
     );
   }
 }
@@ -153,12 +158,14 @@ class ProfileHeader extends StatelessWidget {
   final String title;
   final String subtitle;
   final List<Widget> actions;
+  final bool showButton;
 
   const ProfileHeader(
       {Key key,
       @required this.coverImage,
       @required this.avatar,
-      @required this.title,
+      this.title,
+      this.showButton = false,
       this.subtitle,
       this.actions})
       : super(key: key);
@@ -202,10 +209,10 @@ class ProfileHeader extends StatelessWidget {
                 borderColor: Colors.grey.shade300,
                 borderWidth: 4.0,
               ),
-              Text(
-                title,
-                style: Theme.of(context).textTheme.subtitle2,
-              )
+              // Text(
+              //   title,
+              //   style: Theme.of(context).textTheme.subtitle2,
+              // )
             ],
           ),
         )
@@ -220,11 +227,15 @@ class Avatar extends StatelessWidget {
   final Color backgroundColor;
   final double radius;
   final double borderWidth;
+  final Function onButtonPressed;
+  final bool showButton;
 
   const Avatar(
       {Key key,
       @required this.image,
       this.borderColor,
+      this.showButton = false,
+      this.onButtonPressed,
       this.backgroundColor,
       this.radius,
       this.borderWidth})
@@ -232,19 +243,34 @@ class Avatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      radius: radius + borderWidth,
-      backgroundColor: borderColor,
-      child: CircleAvatar(
-        radius: radius,
-        backgroundColor: backgroundColor != null
-            ? backgroundColor
-            : Theme.of(context).primaryColor,
+    return Stack(clipBehavior: Clip.none, children: [
+      CircleAvatar(
+        radius: radius + borderWidth,
+        backgroundColor: borderColor,
         child: CircleAvatar(
-          radius: radius - borderWidth,
-          backgroundImage: image,
+          radius: radius,
+          backgroundColor: backgroundColor != null
+              ? backgroundColor
+              : Theme.of(context).primaryColor,
+          child: CircleAvatar(
+            radius: radius - borderWidth,
+            backgroundImage: image,
+          ),
         ),
       ),
-    );
+      if (showButton)
+        Positioned(
+          bottom: 0,
+          right: -30,
+          child: MaterialButton(
+            elevation: 1,
+            color: Colors.white,
+            shape: CircleBorder(),
+            child: Icon(Icons.camera_alt),
+            padding: const EdgeInsets.all(4.0),
+            onPressed: onButtonPressed,
+          ),
+        )
+    ]);
   }
 }

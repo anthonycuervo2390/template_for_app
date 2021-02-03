@@ -4,7 +4,9 @@ import 'package:firestore_demo/features/profile/data/model/user_field.dart';
 class UserModel extends DatabaseItem {
   String id;
   String name;
+  String phone;
   String email;
+  String address;
   DateTime lastLoggedIn;
   DateTime registrationDate;
   String photoUrl;
@@ -14,7 +16,9 @@ class UserModel extends DatabaseItem {
   UserModel(
       {this.id,
       this.name,
+      this.phone,
       this.email,
+      this.address,
       this.lastLoggedIn,
       this.registrationDate,
       this.photoUrl,
@@ -25,6 +29,8 @@ class UserModel extends DatabaseItem {
   UserModel.fromDS(String id, Map<String, dynamic> data)
       : id = id,
         name = data[UserFields.name],
+        phone = data[UserFields.phone],
+        address = data[UserFields.address],
         email = data[UserFields.email],
         lastLoggedIn = data[UserFields.lastLoggedIn]?.toDate(),
         registrationDate = data[UserFields.registrationDate]?.toDate(),
@@ -37,6 +43,8 @@ class UserModel extends DatabaseItem {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data[UserFields.id] = id;
     data[UserFields.name] = name;
+    data[UserFields.phone] = phone;
+    data[UserFields.address] = address;
     data[UserFields.email] = email;
     data[UserFields.lastLoggedIn] = lastLoggedIn;
     data[UserFields.registrationDate] = registrationDate;
