@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:firestore_demo/core/presentation/res/analytics.dart';
 import 'package:firestore_demo/core/presentation/res/routes.dart';
 import 'package:firestore_demo/features/auth/data/model/user_repository.dart';
-import 'package:firestore_demo/features/profile/presentation/widgets/avatar.dart';
 import 'package:firestore_demo/generated/l10n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -29,8 +28,7 @@ class UserProfile extends StatelessWidget {
                   ProfileHeader(
                     avatar: user.photoUrl != null
                         ? NetworkImage(user.photoUrl)
-                        : CachedNetworkImageProvider(
-                            "http://via.placeholder.com/350x150"),
+                        : null,
                     coverImage: user.photoUrl != null
                         ? NetworkImage(user.photoUrl)
                         : CachedNetworkImageProvider(

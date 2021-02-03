@@ -29,6 +29,8 @@ enum AppState {
 
 class _EditProfileState extends State<EditProfile> {
   TextEditingController _nameController;
+  TextEditingController _phoneController;
+  TextEditingController _addressController;
   bool _processing;
   AppState state;
   File _image;
@@ -40,6 +42,8 @@ class _EditProfileState extends State<EditProfile> {
     _processing = false;
     state = AppState.free;
     _nameController = TextEditingController(text: widget.user.name);
+    _phoneController = TextEditingController(text: widget.user.phone);
+    _addressController = TextEditingController(text: widget.user.address);
   }
 
   @override
@@ -72,6 +76,18 @@ class _EditProfileState extends State<EditProfile> {
                 InputDecoration(labelText: S.of(context).nameFieldLabel),
           ),
           const SizedBox(height: 10.0),
+          TextField(
+            controller: _phoneController,
+            decoration:
+                InputDecoration(labelText: S.of(context).phoneFieldLabel),
+          ),
+          const SizedBox(height: 10.0),
+          TextField(
+            controller: _addressController,
+            decoration:
+                InputDecoration(labelText: S.of(context).addressFieldLabel),
+          ),
+          const SizedBox(height: 10.0),
           Center(
             child: RaisedButton(
               child: _processing
@@ -92,6 +108,10 @@ class _EditProfileState extends State<EditProfile> {
                       Map<String, dynamic> data = {};
                       if (_nameController.text.isNotEmpty)
                         data[UserFields.name] = _nameController.text;
+                      if (_phoneController.text.isNotEmpty)
+                        data[UserFields.phone] = _phoneController.text;
+                      if (_addressController.text.isNotEmpty)
+                        data[UserFields.address] = _addressController.text;
                       if (_uploadedFileURL != null)
                         data[UserFields.photoUrl] = _uploadedFileURL;
                       if (data.isNotEmpty) {
@@ -157,16 +177,16 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Future getImage(ImageSource source) async {
-    var image = await ImagePicker.pickImage(source: source);
+    PickedFile image = await ImagePicker().getImage(source: source);
     if (image == null) return;
     setState(() {
-      _image = image;
-      _cropImage();
+      _image = File(image.path);
+      _cropImage(_image);
       Navigator.pop(context);
     });
   }
 
-  Future<Null> _cropImage() async {
+  Future<Null> _cropImage(File image) async {
     File croppedFile = await ImageCropper.cropImage(
       sourcePath: _image.path,
       maxWidth: 800,
