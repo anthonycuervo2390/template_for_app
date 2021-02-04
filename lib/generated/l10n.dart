@@ -49,7 +49,7 @@ class S {
   /// `Login`
   String get loginButtonText {
     return Intl.message(
-      'Login',
+      'SIGN IN',
       name: 'loginButtonText',
       desc: '',
       args: [],

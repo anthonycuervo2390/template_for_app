@@ -5,12 +5,14 @@ import 'package:firestore_demo/features/auth/presentation/pages/splash.dart';
 import 'package:firestore_demo/features/auth/presentation/pages/user_info.dart';
 import 'package:firestore_demo/features/profile/presentation/pages/edit_profile.dart';
 import 'package:firestore_demo/features/profile/presentation/pages/profile.dart';
+import 'package:firestore_demo/features/auth/presentation/pages/forgot_password.dart';
 
 class AppRoutes {
   static const home = "/";
   static const splash = "splash";
   static const login = "login";
   static const signup = "signup";
+  static const resetPassword = "reset_password";
   static const userInfo = "user_info";
   static const String profile = "profile";
   static const String editProfile = "edit_profile";
@@ -22,6 +24,8 @@ class AppRoutes {
           switch (settings.name) {
             case home:
               return AuthHomePage();
+            case resetPassword:
+              return ResetPassword();
             case userInfo:
               return UserInfoPage();
             case editProfile:

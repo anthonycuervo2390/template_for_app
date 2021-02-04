@@ -95,6 +95,18 @@ class UserRepository with ChangeNotifier {
     }
   }
 
+  //=========== TEST RESET PASSWORD
+  Future<bool> resetPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      _error = '';
+      return true;
+    } catch (e) {
+      _error = e.message;
+      return false;
+    }
+  }
+
   Future signOut() async {
     _auth.signOut();
     _googleSignIn.signOut();
@@ -185,16 +197,16 @@ class UserRepository with ChangeNotifier {
     }
     userDeviceDBS.collection =
         "${AppDBConstants.usersCollection}/${user.id}/devices";
-    Device exsiting = await userDeviceDBS.getSingle(deviceId);
-    if (exsiting != null) {
-      var token = exsiting.token ?? await pnService.init();
+    Device existing = await userDeviceDBS.getSingle(deviceId);
+    if (existing != null) {
+      var token = existing.token ?? await pnService.init();
       await userDeviceDBS.updateData(deviceId, {
         DeviceFields.lastUpdatedAt: nowMS,
         DeviceFields.expired: false,
-        DeviceFields.uninstalled: false,
+        DeviceFields.uninstalled: false,  
         DeviceFields.token: token,
       });
-      currentDevice = exsiting;
+      currentDevice = existing;
     } else {
       var token = await pnService.init();
       Device device = Device(

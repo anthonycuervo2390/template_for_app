@@ -1,8 +1,9 @@
 import 'package:firestore_demo/core/presentation/providers/providers.dart';
+import 'package:firestore_demo/core/presentation/res/routes.dart';
+import 'package:firestore_demo/features/auth/data/model/user_repository.dart';
+import 'package:firestore_demo/features/auth/presentation/widgets/login_form.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:firestore_demo/generated/l10n.dart';
-import '../widgets/auth_dialog.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -11,109 +12,158 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
-  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
-  bool _authVisible;
-  int _selectedTab;
+  TextEditingController _email;
+  TextEditingController _password;
+  FocusNode _passwordField;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
-    _authVisible = false;
-    _selectedTab = 0;
+    _email = TextEditingController(text: "");
+    _password = TextEditingController(text: "");
+    _passwordField = FocusNode();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _key,
-      body: Stack(
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.grey.shade800,
-            ),
-            width: double.infinity,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const SizedBox(height: kToolbarHeight),
-              Text(
-                S.of(context).loginPageTitleText,
-                style: Theme.of(context).textTheme.display2.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w900,
-                    fontFamily: "Frank"),
-              ),
-              Text(
-                S.of(context).loginPageSubtitleText,
-                style: TextStyle(color: Colors.white, fontSize: 20.0),
-              ),
-              const SizedBox(height: 40.0),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: RaisedButton(
-                        elevation: 0,
-                        highlightElevation: 0,
-                        child: Text(S.of(context).loginButtonText),
-                        onPressed: () => setState(() {
-                          _authVisible = true;
-                          _selectedTab = 0;
-                        }),
-                      ),
-                    ),
-                    const SizedBox(width: 10.0),
-                    Expanded(
-                      child: OutlineButton(
-                        textColor: Colors.white,
-                        child: Text(S.of(context).signupButtonText),
-                        onPressed: () => setState(() {
-                          _authVisible = true;
-                          _selectedTab = 1;
-                        }),
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                    ),
-                  ],
+      body: Consumer(builder: (context, watch, _) {
+        final user = watch(userRepoProvider);
+        return Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('images/crossfit.png'),
+                  fit: BoxFit.cover,
                 ),
               ),
-              const SizedBox(height: 50.0),
-              GoogleSignInButton(
-                text: S.of(context).googleButtonText,
-                onPressed: () async {
-                  if (!await context.read(userRepoProvider).signInWithGoogle())
-                    _key.currentState.showSnackBar(SnackBar(
-                      content: Text("Something is wrong"),
-                    ));
-                },
-              ),
-              const SizedBox(height: 10.0),
-            ],
-          ),
-          AnimatedSwitcher(
-            duration: Duration(milliseconds: 500),
-            child: _authVisible
-                ? Container(
-                    color: Colors.black54,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: AuthDialog(
-                        selectedTab: _selectedTab,
-                        onClose: () {
-                          setState(() {
-                            _authVisible = false;
-                          });
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: [
+                Colors.transparent,
+                Colors.transparent,
+                Color(0xff161d27).withOpacity(0.9),
+                Color(0xff161d27),
+              ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+            ),
+            Center(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Welcome!',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 38,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'Time to Workout, let\'s Sign in',
+                      style:
+                          TextStyle(color: Colors.grey.shade500, fontSize: 16),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      height: 50,
+                      margin: EdgeInsets.only(left: 40, right: 40),
+                      child: LoginField(
+                        key: Key('email-field'),
+                        controller: _email,
+                        validator: (value) => (value.isEmpty)
+                            ? S.of(context).emailValidationError
+                            : null,
+                        isPassword: false,
+                        hintText: S.of(context).emailFieldlabel,
+                        textInputAction: TextInputAction.next,
+                        onEditingComplete: () {
+                          FocusScope.of(context).requestFocus(_passwordField);
                         },
                       ),
                     ),
-                  )
-                : null,
-          )
-        ],
-      ),
+                    SizedBox(height: 20),
+                    Container(
+                      height: 50,
+                      margin: EdgeInsets.only(left: 40, right: 40),
+                      child: LoginField(
+                        focusNode: _passwordField,
+                        key: Key('password-field'),
+                        controller: _password,
+                        validator: (value) => (value.isEmpty)
+                            ? S.of(context).passwordValidationError
+                            : null,
+                        isSecure: true,
+                        hintText: S.of(context).passwordFieldLabel,
+                        onEditingComplete: _login,
+                      ),
+                    ),
+                    SizedBox(height: 12),
+                    InkWell(
+                      onTap: () =>
+                          Navigator.pushNamed(context, AppRoutes.resetPassword),
+                      child: Text(
+                        'Forgot Password?',
+                        style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    if (user.status == Status.Authenticating)
+                      Center(child: CircularProgressIndicator()),
+                    if (user.status != Status.Authenticating)
+                      Container(
+                        height: 50,
+                        width: double.infinity,
+                        margin: EdgeInsets.only(left: 40, right: 40),
+                        child: FlatButton(
+                          color: Colors.redAccent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          onPressed: _login,
+                          child: Text(
+                            S.of(context).loginButtonText,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
+                          ),
+                        ),
+                      ),
+                    SizedBox(height: 30),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        );
+      }),
     );
+  }
+
+  _login() async {
+    if (_formKey.currentState.validate()) {
+      if (!await context
+          .read(userRepoProvider)
+          .signIn(_email.text, _password.text))
+        Scaffold.of(context).showSnackBar(SnackBar(
+          //TODO: change error message
+          content: Text(context.read(userRepoProvider).error),
+        ));
+    }
+  }
+
+  @override
+  void dispose() {
+    _email.dispose();
+    _password.dispose();
+    super.dispose();
   }
 }
