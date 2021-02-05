@@ -1,3 +1,5 @@
+import 'package:firestore_demo/features/wods/presentation/pages/add_wod.dart';
+import 'package:firestore_demo/features/wods/presentation/pages/view_wod_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firestore_demo/features/auth/presentation/pages/home.dart';
@@ -16,12 +18,25 @@ class AppRoutes {
   static const userInfo = "user_info";
   static const String profile = "profile";
   static const String editProfile = "edit_profile";
+  static const String addWod = "add_wod";
+  static const String editWod = "edit_wod";
+  static const String viewWod = "view_wod";
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     return MaterialPageRoute(
         settings: settings,
         builder: (_) {
           switch (settings.name) {
+            case addWod:
+              return AddWodPage(
+                  selectedDate: settings
+                      .arguments); //TODO esto sirve para pasar un argumento de una pagina a otra, ver detalles en Home
+            case editWod:
+              return AddWodPage(
+                  wod: settings
+                      .arguments); //TODO: cuando vayamos a la ruta editWod nos enviara a AddWod pero esta vez le pasamos como argumento el wod seleccionado para que lo muestre y lo podamos editar
+            case viewWod:
+              return WodDetails(wod: settings.arguments);
             case home:
               return AuthHomePage();
             case resetPassword:

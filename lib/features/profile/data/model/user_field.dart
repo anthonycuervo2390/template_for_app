@@ -1,6 +1,7 @@
 class UserFields {
   static const String id = "id";
   static const String name = "name";
+  static const String admin = "admin";
   static const String address = "address";
   static const String phone = "phone";
   static const String email = "email";

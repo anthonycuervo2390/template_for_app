@@ -220,4 +220,10 @@ class _ResetPasswordState extends State<ResetPassword> {
           });
     }
   }
+
+  @override
+  void dispose() {
+    _emailField.dispose();
+    super.dispose();
+  }
 }

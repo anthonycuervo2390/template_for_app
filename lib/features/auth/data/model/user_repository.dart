@@ -142,6 +142,7 @@ class UserRepository with ChangeNotifier {
     UserModel user = UserModel(
       email: _user.email,
       name: _user.displayName,
+      admin: false,
       photoUrl: _user.photoURL,
       id: _user.uid,
       registrationDate: DateTime.now().toUtc(),
@@ -203,7 +204,7 @@ class UserRepository with ChangeNotifier {
       await userDeviceDBS.updateData(deviceId, {
         DeviceFields.lastUpdatedAt: nowMS,
         DeviceFields.expired: false,
-        DeviceFields.uninstalled: false,  
+        DeviceFields.uninstalled: false,
         DeviceFields.token: token,
       });
       currentDevice = existing;

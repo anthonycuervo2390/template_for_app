@@ -42,6 +42,10 @@ class UserProfile extends StatelessWidget {
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
+                    ),
+                    Center(
+                      child:
+                          user.admin == false ? Text('Athlete') : Text('Coach'),
                     )
                   ],
                   SizedBox(height: 10.0),

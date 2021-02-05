@@ -5,6 +5,7 @@ class UserModel extends DatabaseItem {
   String id;
   String name;
   String phone;
+  bool admin;
   String email;
   String address;
   DateTime lastLoggedIn;
@@ -16,6 +17,7 @@ class UserModel extends DatabaseItem {
   UserModel(
       {this.id,
       this.name,
+      this.admin,
       this.phone,
       this.email,
       this.address,
@@ -29,6 +31,7 @@ class UserModel extends DatabaseItem {
   UserModel.fromDS(String id, Map<String, dynamic> data)
       : id = id,
         name = data[UserFields.name],
+        admin = data[UserFields.admin],
         phone = data[UserFields.phone],
         address = data[UserFields.address],
         email = data[UserFields.email],
@@ -43,6 +46,7 @@ class UserModel extends DatabaseItem {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data[UserFields.id] = id;
     data[UserFields.name] = name;
+    data[UserFields.admin] = admin;
     data[UserFields.phone] = phone;
     data[UserFields.address] = address;
     data[UserFields.email] = email;
