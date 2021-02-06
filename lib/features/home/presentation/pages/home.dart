@@ -1,7 +1,9 @@
 import 'package:firestore_demo/core/presentation/providers/providers.dart';
 import 'package:firestore_demo/core/presentation/res/colors.dart';
+import 'package:firestore_demo/core/widgets/drawer.dart';
 import 'package:firestore_demo/features/wods/data/services/models/app_wod.dart';
 import 'package:firestore_demo/features/wods/data/services/wod_firestore_service.dart';
+import 'package:firestore_demo/generated/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firestore_demo/core/presentation/res/routes.dart';
@@ -16,6 +18,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   CalendarController _calendarController = CalendarController();
+  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
+  final Color primary = Color(0xff291747);
+  final Color active = Color(0xff6C48AB);
   //TODO: para poder pasar eventos dinamicamente necesitamos convertir la lista de wods de firestore a MAP
   Map<DateTime, List<AppWod>> _groupedWods;
   @override
@@ -41,8 +46,16 @@ class _HomePageState extends State<HomePage> {
     return Consumer(builder: (context, watch, _) {
       final user = watch(userRepoProvider).user;
       return Scaffold(
+        key: _key,
         appBar: AppBar(
-          title: Text('CrossFit Kabod'),
+          title: Text(S.of(context).appName),
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {
+              _key.currentState.openDrawer();
+            },
+          ),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.person),
@@ -50,6 +63,7 @@ class _HomePageState extends State<HomePage> {
             )
           ],
         ),
+        drawer: BuildDrawer(primary: primary, active: active),
         body: SingleChildScrollView(
           child: StreamBuilder(
             //========SI QUISIERAMOS QUE EL USUARIO VEA SOLO EL EVENTO QUE EL CREO Y QUE NADIE MAS LO VEA======//
@@ -78,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                         },
                         initialCalendarFormat: CalendarFormat.week,
                         calendarController: _calendarController,
-                        locale: 'es_US',
+                        locale: Localizations.localeOf(context).languageCode,
                         headerStyle: HeaderStyle(
                           centerHeaderTitle: true,
                           decoration: BoxDecoration(
@@ -129,15 +143,16 @@ class _HomePageState extends State<HomePage> {
                                   child: Text(DateFormat('EEE, d/M/y')
                                       .format(wod.date)),
                                 )),
-                                onTap: () {
-                                  if (user.admin == true) {
-                                    Navigator.pushNamed(
-                                        context, AppRoutes.viewWod,
-                                        arguments: wod);
-                                  } else {
-                                    return null;
-                                  }
-                                },
+                                trailing: user.admin == false
+                                    ? null
+                                    : IconButton(
+                                        icon: Icon(Icons.edit),
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, AppRoutes.viewWod,
+                                              arguments: wod);
+                                        },
+                                      ),
                               ),
                               Padding(
                                 padding: EdgeInsets.all(16.0),

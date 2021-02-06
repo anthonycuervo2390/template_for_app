@@ -2,7 +2,6 @@ import 'package:firestore_demo/core/presentation/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:firestore_demo/core/presentation/res/analytics.dart';
 import 'package:firestore_demo/core/presentation/res/routes.dart';
-import 'package:firestore_demo/features/auth/data/model/user_repository.dart';
 import 'package:firestore_demo/generated/l10n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -44,8 +43,9 @@ class UserProfile extends StatelessWidget {
                       ),
                     ),
                     Center(
-                      child:
-                          user.admin == false ? Text('Athlete') : Text('Coach'),
+                      child: user.admin == false
+                          ? Text(S.of(context).athleteTitleText)
+                          : Text(S.of(context).coachTitleText),
                     )
                   ],
                   SizedBox(height: 10.0),
@@ -94,7 +94,7 @@ class UserInfo extends StatelessWidget {
               padding: const EdgeInsets.only(left: 8.0, bottom: 4.0),
               alignment: Alignment.topLeft,
               child: Text(
-                'User Information',
+                S.of(context).personalInformationLabel,
                 style: TextStyle(
                   color: Colors.black87,
                   fontWeight: FontWeight.w500,
@@ -118,24 +118,24 @@ class UserInfo extends StatelessWidget {
                               contentPadding: EdgeInsets.symmetric(
                                   horizontal: 12, vertical: 4),
                               leading: Icon(Icons.home),
-                              title: Text('Address'),
+                              title: Text(S.of(context).addressFieldLabel),
                               subtitle: Text(user?.address ??
-                                  "please complete your personal information"),
+                                  S.of(context).addressInformationText),
                             ),
                             ListTile(
                               leading: Icon(Icons.email),
-                              title: Text('Email'),
+                              title: Text(S.of(context).emailFieldlabel),
                               subtitle: Text(user?.email),
                             ),
                             ListTile(
                               leading: Icon(Icons.phone),
-                              title: Text('Phone'),
+                              title: Text(S.of(context).phoneFieldLabel),
                               subtitle: Text(user?.phone ??
-                                  'please complete your personal information'),
+                                  S.of(context).phoneInformationText),
                             ),
                             ListTile(
                               leading: Icon(Icons.calendar_today),
-                              title: Text('Joined date'),
+                              title: Text(S.of(context).joinedDateLabel),
                               subtitle: Text(
                                   '${user.registrationDate.day.toString()}-${user.registrationDate.month.toString()}-${user.registrationDate.year.toString()}'),
                             ),

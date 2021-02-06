@@ -14,32 +14,31 @@ import 'intl/messages_all.dart';
 
 class S {
   S();
-
+  
   static S current;
-
-  static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
+  
+  static const AppLocalizationDelegate delegate =
+    AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
-    final localeName = Intl.canonicalizedLocale(name);
+    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
+    final localeName = Intl.canonicalizedLocale(name); 
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
       S.current = S();
-
+      
       return S.current;
     });
-  }
+  } 
 
   static S of(BuildContext context) {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Firebase starter`
+  /// `CrossFit Kabod`
   String get appName {
     return Intl.message(
-      'Firebase starter',
+      'CrossFit Kabod',
       name: 'appName',
       desc: '',
       args: [],
@@ -49,48 +48,58 @@ class S {
   /// `Login`
   String get loginButtonText {
     return Intl.message(
-      'SIGN IN',
+      'Login',
       name: 'loginButtonText',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sign up`
-  String get signupButtonText {
+  /// `Time to Workout, let's Sign in`
+  String get welcomeSubtitleText {
     return Intl.message(
-      'Sign up',
-      name: 'signupButtonText',
+      'Time to Workout, let\'s Sign in',
+      name: 'welcomeSubtitleText',
       desc: '',
       args: [],
     );
   }
 
-  /// `Continue with Google`
-  String get googleButtonText {
+  /// `Forgot Password?`
+  String get forgotPasswordButtonText {
     return Intl.message(
-      'Continue with Google',
-      name: 'googleButtonText',
+      'Forgot Password?',
+      name: 'forgotPasswordButtonText',
       desc: '',
       args: [],
     );
   }
 
-  /// `Welcome`
+  /// `Welcome!`
   String get loginPageTitleText {
     return Intl.message(
-      'Welcome',
+      'Welcome!',
       name: 'loginPageTitleText',
       desc: '',
       args: [],
     );
   }
 
-  /// `Our awesome login app`
-  String get loginPageSubtitleText {
+  /// `Reset Password\n\n`
+  String get resetPasswordTitleText {
     return Intl.message(
-      'Our awesome login app',
-      name: 'loginPageSubtitleText',
+      'Reset Password\n\n',
+      name: 'resetPasswordTitleText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your email address. You will receive a link to create a new password via email`
+  String get resetPasswordSubtitleText {
+    return Intl.message(
+      'Please enter your email address. You will receive a link to create a new password via email',
+      name: 'resetPasswordSubtitleText',
       desc: '',
       args: [],
     );
@@ -106,6 +115,16 @@ class S {
     );
   }
 
+  /// `SEND`
+  String get sendPasswordButtonText {
+    return Intl.message(
+      'SEND',
+      name: 'sendPasswordButtonText',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Password`
   String get passwordFieldLabel {
     return Intl.message(
@@ -116,11 +135,51 @@ class S {
     );
   }
 
-  /// `Please enter email`
+  /// `Please enter a valid email`
   String get emailValidationError {
     return Intl.message(
-      'Please enter email',
+      'Please enter a valid email',
       name: 'emailValidationError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Try again`
+  String get tryAgainErrorText {
+    return Intl.message(
+      'Try again',
+      name: 'tryAgainErrorText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Success!`
+  String get successValidatorText {
+    return Intl.message(
+      'Success!',
+      name: 'successValidatorText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We have sent a new reset link to your email`
+  String get successMessageText {
+    return Intl.message(
+      'We have sent a new reset link to your email',
+      name: 'successMessageText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue to sign in`
+  String get continuoToSignInText {
+    return Intl.message(
+      'Continue to sign in',
+      name: 'continuoToSignInText',
       desc: '',
       args: [],
     );
@@ -196,10 +255,10 @@ class S {
     );
   }
 
-  /// `Phone`
+  /// `Phone number`
   String get phoneFieldLabel {
     return Intl.message(
-      'Phone',
+      'Phone number',
       name: 'phoneFieldLabel',
       desc: '',
       args: [],
@@ -226,6 +285,26 @@ class S {
     );
   }
 
+  /// `Coach`
+  String get coachTitleText {
+    return Intl.message(
+      'Coach',
+      name: 'coachTitleText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Athlete`
+  String get athleteTitleText {
+    return Intl.message(
+      'Athlete',
+      name: 'athleteTitleText',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Save`
   String get saveButtonLabel {
     return Intl.message(
@@ -241,6 +320,46 @@ class S {
     return Intl.message(
       'Gallery',
       name: 'pickFromGalleryButtonLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Personal information`
+  String get personalInformationLabel {
+    return Intl.message(
+      'Personal information',
+      name: 'personalInformationLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your phone number`
+  String get phoneInformationText {
+    return Intl.message(
+      'Please enter your phone number',
+      name: 'phoneInformationText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your address`
+  String get addressInformationText {
+    return Intl.message(
+      'Please enter your address',
+      name: 'addressInformationText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Joined date`
+  String get joinedDateLabel {
+    return Intl.message(
+      'Joined date',
+      name: 'joinedDateLabel',
       desc: '',
       args: [],
     );
@@ -285,6 +404,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Add a new workout`
+  String get addNewWODTitleText {
+    return Intl.message(
+      'Add a new workout',
+      name: 'addNewWODTitleText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Title`
+  String get titleFieldText {
+    return Intl.message(
+      'Title',
+      name: 'titleFieldText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add a title`
+  String get titleHintLabel {
+    return Intl.message(
+      'Add a title',
+      name: 'titleHintLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description`
+  String get descriptionNewWODTitleText {
+    return Intl.message(
+      'Description',
+      name: 'descriptionNewWODTitleText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add details`
+  String get detailsHintLabel {
+    return Intl.message(
+      'Add details',
+      name: 'detailsHintLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date`
+  String get dateLabelText {
+    return Intl.message(
+      'Date',
+      name: 'dateLabelText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add date`
+  String get dateHintLabel {
+    return Intl.message(
+      'Add date',
+      name: 'dateHintLabel',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -293,6 +482,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'es'),
     ];
   }
 

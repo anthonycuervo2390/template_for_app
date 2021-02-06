@@ -1,6 +1,7 @@
 import 'package:firestore_demo/core/presentation/providers/providers.dart';
 import 'package:firestore_demo/features/wods/data/services/models/app_wod.dart';
 import 'package:firestore_demo/features/wods/data/services/wod_firestore_service.dart';
+import 'package:firestore_demo/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
@@ -21,7 +22,7 @@ class _AddEventPageState extends State<AddWodPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add a new workout'),
+        title: Text(S.of(context).addNewWODTitleText),
         leading: IconButton(
           icon: Icon(Icons.clear),
           onPressed: () {
@@ -54,7 +55,7 @@ class _AddEventPageState extends State<AddWodPage> {
                   Navigator.pop(context);
                 }
               },
-              child: Text('Save'),
+              child: Text(S.of(context).saveButtonLabel),
             ),
           )
         ],
@@ -72,7 +73,7 @@ class _AddEventPageState extends State<AddWodPage> {
                   name: 'title',
                   initialValue: widget.wod?.title,
                   decoration: InputDecoration(
-                    hintText: 'Add a title',
+                    hintText: S.of(context).titleHintLabel,
                     hintStyle: TextStyle(color: Colors.grey),
                     contentPadding: EdgeInsets.only(left: 48.0),
                   ),
@@ -85,7 +86,7 @@ class _AddEventPageState extends State<AddWodPage> {
                   initialValue: widget.wod
                       ?.description, //TODO: el signo ? en esa posicion nos indica que si wod no existe la operacion es nula
                   decoration: InputDecoration(
-                    hintText: 'Add Details',
+                    hintText: S.of(context).detailsHintLabel,
                     hintStyle: TextStyle(color: Colors.grey),
                     prefixIcon: Icon(
                       Icons.short_text,
@@ -109,7 +110,7 @@ class _AddEventPageState extends State<AddWodPage> {
                       : widget.selectedDate ??
                           DateTime
                               .now(), //TODO: ESTE ES EL ARGUMENTO QUE PASAMOS Y ?? SIGNIFICA QUE SI ES NULO HACEMOS LO OTRO
-                  fieldHintText: 'Add Date',
+                  fieldHintText: S.of(context).dateHintLabel,
                   inputType: InputType.date,
                   format: DateFormat('EEEE, dd MMMM, yyyy'),
                   decoration: InputDecoration(

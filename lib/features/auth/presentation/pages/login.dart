@@ -56,7 +56,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      'Welcome!',
+                      S.of(context).loginPageTitleText,
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 38,
@@ -64,7 +64,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      'Time to Workout, let\'s Sign in',
+                      S.of(context).welcomeSubtitleText,
                       style:
                           TextStyle(color: Colors.grey.shade500, fontSize: 16),
                     ),
@@ -107,7 +107,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       onTap: () =>
                           Navigator.pushNamed(context, AppRoutes.resetPassword),
                       child: Text(
-                        'Forgot Password?',
+                        S.of(context).forgotPasswordButtonText,
                         style: TextStyle(
                             color: Colors.red,
                             fontSize: 14,

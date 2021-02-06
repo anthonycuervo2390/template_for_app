@@ -53,15 +53,14 @@ class _ResetPasswordState extends State<ResetPassword> {
                             text: TextSpan(
                               children: [
                                 TextSpan(
-                                  text: 'Reset Password\n\n',
+                                  text: S.of(context).resetPasswordTitleText,
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 38,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 TextSpan(
-                                  text:
-                                      'Please enter your email address. You will receive a link to create a new password via email',
+                                  text: S.of(context).resetPasswordSubtitleText,
                                   style: TextStyle(
                                       color: Colors.grey.shade500,
                                       fontSize: 16),
@@ -99,7 +98,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       _resetPassword();
                     },
                     child: Text(
-                      'SEND',
+                      S.of(context).sendPasswordButtonText,
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -153,7 +152,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                     ),
                     SizedBox(height: 12.0),
                     Text(
-                      'Please enter a valid email',
+                      S.of(context).emailValidationError,
                       style:
                           TextStyle(color: Colors.grey.shade500, fontSize: 16),
                     ),
@@ -164,7 +163,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: Text('Try again'),
+                        child: Text(S.of(context).tryAgainErrorText),
                       ),
                     )
                   ],
@@ -182,7 +181,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 borderRadius: BorderRadius.circular(15.0),
               ),
               content: Container(
-                height: 250.0,
+                height: 260.0,
                 child: Column(
                   children: [
                     Image.asset(
@@ -199,7 +198,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                     ),
                     SizedBox(height: 12.0),
                     Text(
-                      'We have sent a new reset link to your email',
+                      S.of(context).successMessageText,
                       style:
                           TextStyle(color: Colors.grey.shade500, fontSize: 16),
                     ),
@@ -210,7 +209,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: Text('Continue to sign in'),
+                        child: Text(S.of(context).continuoToSignInText),
                       ),
                     )
                   ],
