@@ -63,14 +63,14 @@ class WodDetails extends StatelessWidget {
             child: Column(
               children: [
                 ListTile(
-                  title: Center(
-                    child: Text(
-                      wod.title,
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-                    ),
-                  ),
+                  // title: Center(
+                  //   child: Text(
+                  //     wod.title,
+                  //     textAlign: TextAlign.center,
+                  //     style:
+                  //         TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                  //   ),
+                  // ),
                   subtitle: (Center(
                     child:
                         Text(DateFormat('EEE, dd MMM, yyyy').format(wod.date)),
@@ -80,7 +80,7 @@ class WodDetails extends StatelessWidget {
                   padding: EdgeInsets.all(16.0),
                   child: Center(
                     child: Text(
-                      wod.description,
+                      wod.wodDescription,
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 18),
                     ),

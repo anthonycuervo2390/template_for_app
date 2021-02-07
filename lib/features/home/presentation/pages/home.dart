@@ -124,48 +124,137 @@ class _HomePageState extends State<HomePage> {
                       itemCount: _selectedWods.length,
                       itemBuilder: (BuildContext context, int index) {
                         AppWod wod = _selectedWods[index];
-                        return Card(
-                          color: Colors.grey,
-                          clipBehavior: Clip.antiAlias,
-                          child: Column(
-                            children: [
-                              ListTile(
-                                title: Center(
-                                  child: Text(
-                                    wod.title,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 26,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                subtitle: (Center(
-                                  child: Text(DateFormat('EEE, d/M/y')
-                                      .format(wod.date)),
-                                )),
-                                trailing: user.admin == false
-                                    ? null
-                                    : IconButton(
-                                        icon: Icon(Icons.edit),
-                                        onPressed: () {
-                                          Navigator.pushNamed(
-                                              context, AppRoutes.viewWod,
-                                              arguments: wod);
-                                        },
+                        return Column(
+                          children: [
+                            if (wod.weightliftingMovement != null &&
+                                wod.weightliftingDescription != null &&
+                                wod.rounds != null &&
+                                wod.reps != null) ...[
+                              Card(
+                                color: Colors.grey,
+                                clipBehavior: Clip.antiAlias,
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      title: Center(
+                                        child: Text(
+                                          'WEIGHTLIFTING',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 26,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(16.0),
-                                child: Center(
-                                  child: Text(
-                                    wod.description,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(fontSize: 18),
-                                  ),
+                                      trailing: user.admin == false
+                                          ? null
+                                          : IconButton(
+                                              icon: Icon(Icons.edit),
+                                              onPressed: () {
+                                                Navigator.pushNamed(
+                                                    context, AppRoutes.viewWod,
+                                                    arguments: wod);
+                                              },
+                                            ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.all(16.0),
+                                      child: Center(
+                                        child: Text(
+                                          wod.weightliftingDescription,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(fontSize: 18),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
-                          ),
+                            Card(
+                              color: Colors.grey,
+                              clipBehavior: Clip.antiAlias,
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    title: Center(
+                                      child: Text(
+                                        'WOD',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 26,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    subtitle: (Center(
+                                      child: Text(DateFormat('EEE, d/M/y')
+                                          .format(wod.date)),
+                                    )),
+                                    trailing: user.admin == false
+                                        ? null
+                                        : IconButton(
+                                            icon: Icon(Icons.edit),
+                                            onPressed: () {
+                                              Navigator.pushNamed(
+                                                  context, AppRoutes.viewWod,
+                                                  arguments: wod);
+                                            },
+                                          ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(16.0),
+                                    child: Center(
+                                      child: Text(
+                                        wod.wodDescription,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            if (wod.extrasDescription != null) ...[
+                              Card(
+                                color: Colors.grey,
+                                clipBehavior: Clip.antiAlias,
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      title: Center(
+                                        child: Text(
+                                          'EXTRAS',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 26,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      trailing: user.admin == false
+                                          ? null
+                                          : IconButton(
+                                              icon: Icon(Icons.edit),
+                                              onPressed: () {
+                                                Navigator.pushNamed(
+                                                    context, AppRoutes.viewWod,
+                                                    arguments: wod);
+                                              },
+                                            ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.all(16.0),
+                                      child: Center(
+                                        child: Text(
+                                          wod.extrasDescription,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(fontSize: 18),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ]
+                          ],
                         );
                       },
                     ),

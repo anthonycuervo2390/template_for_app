@@ -1,13 +1,10 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firestore_demo/core/presentation/res/analytics.dart';
-import 'package:firestore_demo/core/presentation/res/app_config.dart';
 import 'package:firestore_demo/core/presentation/res/routes.dart';
 import 'package:firestore_demo/features/auth/presentation/pages/home.dart';
 import 'package:firestore_demo/generated/l10n.dart';
-
 import 'core/presentation/providers/providers.dart';
 import 'core/presentation/res/themes.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

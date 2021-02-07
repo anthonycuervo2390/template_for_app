@@ -1,48 +1,70 @@
 import 'dart:convert';
 
 class AppWod {
-  final String title;
+  final String rounds;
   final String id;
-  final String description;
+  final String wodDescription;
   final DateTime date;
   final String
       userId; //TODO: esto es extra para poder mostrar info solo a este usuario
-  final bool public; //TODO: esto aun no se como se usa
+  final String weightliftingMovement;
+  final String reps;
+  final String weightliftingDescription;
+  final String extrasDescription;
+  final String scoring;
   AppWod({
-    this.title,
+    this.rounds,
+    this.scoring,
     this.id,
-    this.description,
+    this.wodDescription,
+    this.extrasDescription,
+    this.weightliftingDescription,
+    this.reps,
     this.date,
     this.userId,
-    this.public,
+    this.weightliftingMovement,
   });
 
   AppWod copyWith({
-    String title,
+    String rounds,
+    String scoring,
     String id,
-    String description,
+    String reps,
+    String wodDescription,
     DateTime date,
     String userId,
-    bool public,
+    String weightliftingMovement,
+    String weightliftingDescription,
+    String extrasDescription,
   }) {
     return AppWod(
-      title: title ?? this.title,
+      rounds: rounds ?? this.rounds,
+      scoring: scoring ?? this.scoring,
       id: id ?? this.id,
-      description: description ?? this.description,
+      reps: reps ?? this.reps,
+      wodDescription: wodDescription ?? this.wodDescription,
       date: date ?? this.date,
       userId: userId ?? this.userId,
-      public: public ?? this.public,
+      weightliftingMovement:
+          weightliftingMovement ?? this.weightliftingMovement,
+      weightliftingDescription:
+          weightliftingDescription ?? this.weightliftingDescription,
+      extrasDescription: extrasDescription ?? this.extrasDescription,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'title': title,
+      'rounds': rounds,
+      'scoring': scoring,
+      'reps': reps,
       'id': id,
-      'description': description,
+      'wodDescription': wodDescription,
       'date': date.millisecondsSinceEpoch,
       'userId': userId,
-      'public': public,
+      'weightliftingMovement': weightliftingMovement,
+      'weightliftingDescription': weightliftingDescription,
+      'extrasDescription': extrasDescription,
     };
   }
 
@@ -51,12 +73,16 @@ class AppWod {
     if (map == null) return null;
 
     return AppWod(
-      title: map['title'],
+      rounds: map['rounds'],
+      scoring: map['scoring'],
       id: map['id'],
-      description: map['description'],
+      reps: map['reps'],
+      wodDescription: map['wodDescription'],
       date: DateTime.fromMillisecondsSinceEpoch(map['date']),
       userId: map['userId'],
-      public: map['public'],
+      weightliftingDescription: map['weightliftingDescription'],
+      weightliftingMovement: map['weightliftingMovement'],
+      extrasDescription: map['extrasDescription'],
     );
   }
 
@@ -65,12 +91,16 @@ class AppWod {
     if (data == null) return null;
 
     return AppWod(
-      title: data['title'],
+      rounds: data['rounds'],
+      scoring: data['scoring'],
       id: id,
-      description: data['description'],
+      reps: data['reps'],
+      wodDescription: data['wodDescription'],
       date: DateTime.fromMillisecondsSinceEpoch(data['date']),
       userId: data['user_id'],
-      public: data['public'],
+      weightliftingDescription: data['weightliftingDescription'],
+      weightliftingMovement: data['weightliftingMovement'],
+      extrasDescription: data['extrasDescription'],
     );
   }
 
@@ -80,7 +110,7 @@ class AppWod {
 
   @override
   String toString() {
-    return 'AppEvent(title: $title, id: $id, description: $description, date: $date, userId: $userId, public: $public)';
+    return 'AppEvent(rounds: $rounds, id: $id, wodDescription: $wodDescription, date: $date, scoring: $scoring, userId: $userId, reps: $reps, weightliftingDescription: $weightliftingDescription, weightliftingMovement: $weightliftingMovement, extrasDescription: $extrasDescription)';
   }
 
   @override
@@ -88,21 +118,29 @@ class AppWod {
     if (identical(this, o)) return true;
 
     return o is AppWod &&
-        o.title == title &&
+        o.rounds == rounds &&
+        o.scoring == scoring &&
+        o.reps == reps &&
         o.id == id &&
-        o.description == description &&
+        o.wodDescription == wodDescription &&
         o.date == date &&
         o.userId == userId &&
-        o.public == public;
+        o.weightliftingDescription == weightliftingDescription &&
+        o.weightliftingMovement == weightliftingMovement &&
+        o.extrasDescription == extrasDescription;
   }
 
   @override
   int get hashCode {
-    return title.hashCode ^
+    return rounds.hashCode ^
         id.hashCode ^
-        description.hashCode ^
+        scoring.hashCode ^
+        wodDescription.hashCode ^
         date.hashCode ^
         userId.hashCode ^
-        public.hashCode;
+        reps.hashCode ^
+        weightliftingDescription.hashCode ^
+        weightliftingMovement.hashCode ^
+        extrasDescription.hashCode;
   }
 }
