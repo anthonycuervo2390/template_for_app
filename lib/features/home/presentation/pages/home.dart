@@ -151,8 +151,10 @@ class _HomePageState extends State<HomePage> {
                                               icon: Icon(Icons.edit),
                                               onPressed: () {
                                                 Navigator.pushNamed(
-                                                    context, AppRoutes.viewWod,
-                                                    arguments: wod);
+                                                  context,
+                                                  AppRoutes.addResult,
+                                                  arguments: selectedDate,
+                                                );
                                               },
                                             ),
                                     ),

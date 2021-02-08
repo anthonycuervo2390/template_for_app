@@ -1,4 +1,6 @@
+import 'package:firestore_demo/features/results/screens/add_results.dart';
 import 'package:firestore_demo/features/wods/presentation/pages/add_wod.dart';
+import 'file:///C:/Users/antho/Documents/App_Development/firestore_demo/lib/features/results/screens/results.dart';
 import 'package:firestore_demo/features/wods/presentation/pages/view_wod_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -21,12 +23,18 @@ class AppRoutes {
   static const String addWod = "add_wod";
   static const String editWod = "edit_wod";
   static const String viewWod = "view_wod";
+  static const String addResult = "add_result";
+  static const String results = "results";
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     return MaterialPageRoute(
         settings: settings,
         builder: (_) {
           switch (settings.name) {
+            case results:
+              return ResultsPage();
+            case addResult:
+              return AddResultPage(selectedDate: settings.arguments);
             case addWod:
               return AddWodPage(
                   selectedDate: settings
