@@ -1,4 +1,5 @@
 import 'package:firestore_demo/core/presentation/providers/providers.dart';
+import 'package:firestore_demo/core/presentation/res/colors.dart';
 import 'package:firestore_demo/core/presentation/res/routes.dart';
 import 'package:firestore_demo/features/auth/data/model/user_repository.dart';
 import 'package:firestore_demo/features/auth/presentation/widgets/login_form.dart';
@@ -58,7 +59,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     Text(
                       S.of(context).loginPageTitleText,
                       style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.labelColor,
                           fontSize: 38,
                           fontWeight: FontWeight.bold),
                     ),
@@ -109,7 +110,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       child: Text(
                         S.of(context).forgotPasswordButtonText,
                         style: TextStyle(
-                            color: Colors.red,
+                            color: AppColors.primaryColor,
                             fontSize: 14,
                             fontWeight: FontWeight.bold),
                       ),
@@ -123,7 +124,7 @@ class _WelcomePageState extends State<WelcomePage> {
                         width: double.infinity,
                         margin: EdgeInsets.only(left: 40, right: 40),
                         child: FlatButton(
-                          color: Colors.redAccent,
+                          color: AppColors.buttonColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
@@ -131,7 +132,7 @@ class _WelcomePageState extends State<WelcomePage> {
                           child: Text(
                             S.of(context).loginButtonText,
                             style: TextStyle(
-                                color: Colors.white,
+                                color: AppColors.labelColor,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16),
                           ),

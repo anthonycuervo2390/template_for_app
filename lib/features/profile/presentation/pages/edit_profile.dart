@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_helpers/firebase_helpers.dart';
+import 'package:firestore_demo/core/presentation/res/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -64,28 +65,38 @@ class _EditProfileState extends State<EditProfile> {
                   ? FileImage(_image)
                   : widget.user.photoUrl != null
                       ? NetworkImage(widget.user.photoUrl)
-                      : null,
+                      : AssetImage('images/profile_image.jpg'),
             ),
           ),
           const SizedBox(height: 10.0),
-          Center(child: Text(widget.user.email)),
+          Center(
+              child: Text(
+            widget.user.email,
+            style: TextStyle(color: AppColors.textColor, fontSize: 18),
+          )),
           const SizedBox(height: 10.0),
           TextField(
+            style: TextStyle(color: AppColors.textColor, fontSize: 18),
             controller: _nameController,
-            decoration:
-                InputDecoration(labelText: S.of(context).nameFieldLabel),
+            decoration: InputDecoration(
+                labelText: S.of(context).nameFieldLabel,
+                labelStyle: TextStyle(color: AppColors.primaryColor)),
           ),
           const SizedBox(height: 10.0),
           TextField(
+            style: TextStyle(color: AppColors.textColor, fontSize: 18),
             controller: _phoneController,
-            decoration:
-                InputDecoration(labelText: S.of(context).phoneFieldLabel),
+            decoration: InputDecoration(
+                labelText: S.of(context).phoneFieldLabel,
+                labelStyle: TextStyle(color: AppColors.primaryColor)),
           ),
           const SizedBox(height: 10.0),
           TextField(
+            style: TextStyle(color: AppColors.textColor, fontSize: 18),
             controller: _addressController,
-            decoration:
-                InputDecoration(labelText: S.of(context).addressFieldLabel),
+            decoration: InputDecoration(
+                labelText: S.of(context).addressFieldLabel,
+                labelStyle: TextStyle(color: AppColors.primaryColor)),
           ),
           const SizedBox(height: 10.0),
           Center(

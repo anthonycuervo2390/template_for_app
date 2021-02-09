@@ -9,8 +9,6 @@ class ResultsPage extends StatefulWidget {
 }
 
 class _ResultPageState extends State<ResultsPage> {
-  final Color primary = Color(0xff291747);
-  final Color active = Color(0xff6C48AB);
   CalendarController _calendarController = CalendarController();
   @override
   Widget build(BuildContext context) {
@@ -23,7 +21,7 @@ class _ResultPageState extends State<ResultsPage> {
               onPressed: () => Navigator.pushNamed(context, AppRoutes.profile)),
         ],
       ),
-      drawer: BuildDrawer(primary: primary, active: active),
+      drawer: BuildDrawer(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

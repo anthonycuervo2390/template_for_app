@@ -1,3 +1,4 @@
+import 'package:firestore_demo/core/presentation/res/colors.dart';
 import 'package:firestore_demo/core/presentation/res/routes.dart';
 import 'package:firestore_demo/features/wods/data/services/models/app_wod.dart';
 import 'package:firestore_demo/features/wods/data/services/wod_firestore_service.dart';
@@ -57,24 +58,57 @@ class WodDetails extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.all(16.0),
         children: [
+          Text(
+            DateFormat('EEEE, d MMM yyyy').format(wod.date),
+            style: TextStyle(fontSize: 24, color: AppColors.labelColor),
+          ),
+          if (wod.weightliftingMovement != null &&
+              wod.weightliftingDescription != null &&
+              wod.rounds != null &&
+              wod.reps != null) ...[
+            Card(
+              color: Colors.grey,
+              clipBehavior: Clip.antiAlias,
+              child: Column(
+                children: [
+                  ListTile(
+                    title: Center(
+                      child: Text(
+                        'WEIGHTLIFTING',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 26, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Center(
+                      child: Text(
+                        wod.weightliftingDescription,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
           Card(
             color: Colors.grey,
             clipBehavior: Clip.antiAlias,
             child: Column(
               children: [
                 ListTile(
-                  // title: Center(
-                  //   child: Text(
-                  //     wod.title,
-                  //     textAlign: TextAlign.center,
-                  //     style:
-                  //         TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-                  //   ),
-                  // ),
-                  subtitle: (Center(
-                    child:
-                        Text(DateFormat('EEE, dd MMM, yyyy').format(wod.date)),
-                  )),
+                  title: Center(
+                    child: Text(
+                      'WOD',
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.all(16.0),
@@ -89,6 +123,36 @@ class WodDetails extends StatelessWidget {
               ],
             ),
           ),
+          if (wod.extrasDescription != null) ...[
+            Card(
+              color: Colors.grey,
+              clipBehavior: Clip.antiAlias,
+              child: Column(
+                children: [
+                  ListTile(
+                    title: Center(
+                      child: Text(
+                        'EXTRAS',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 26, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Center(
+                      child: Text(
+                        wod.extrasDescription,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ]
         ],
       ),
     );

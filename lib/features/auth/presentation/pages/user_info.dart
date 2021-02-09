@@ -13,7 +13,9 @@ class UserInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).profilePageTitle),
+        title: Text(
+          S.of(context).profilePageTitle,
+        ),
       ),
       body: Center(
         child: Column(

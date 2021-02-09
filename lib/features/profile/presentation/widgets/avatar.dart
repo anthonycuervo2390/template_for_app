@@ -27,7 +27,7 @@ class Avatar extends StatelessWidget {
         CircleAvatar(
           radius: radius,
           backgroundColor:
-              borderColor != null ? borderColor : AppColors.primaryColorLight,
+              borderColor != null ? borderColor : AppColors.primaryColor,
           child: CircleAvatar(
             radius: radius - borderWidth,
             backgroundImage: image,

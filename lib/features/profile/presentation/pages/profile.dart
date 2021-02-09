@@ -1,4 +1,5 @@
 import 'package:firestore_demo/core/presentation/providers/providers.dart';
+import 'package:firestore_demo/core/presentation/res/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:firestore_demo/core/presentation/res/analytics.dart';
 import 'package:firestore_demo/core/presentation/res/routes.dart';
@@ -10,7 +11,7 @@ class UserProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
+      // backgroundColor: Colors.grey.shade100,
       extendBodyBehindAppBar: true,
       extendBody: true,
       appBar: AppBar(
@@ -27,25 +28,33 @@ class UserProfile extends StatelessWidget {
                   ProfileHeader(
                     avatar: user.photoUrl != null
                         ? NetworkImage(user.photoUrl)
-                        : null,
-                    coverImage: user.photoUrl != null
-                        ? NetworkImage(user.photoUrl)
-                        : CachedNetworkImageProvider(
-                            "http://via.placeholder.com/350x150",
+                        : AssetImage(
+                            "images/profile_image.jpg",
                           ),
+                    coverImage: CachedNetworkImageProvider(
+                      "https://res.cloudinary.com/drhs1q5p3/image/upload/c_scale,f_auto,q_auto,w_735/v1612860087/Rotator-SquatCleanPyramid_0_d0r3be.jpg",
+                    ),
                   ),
                   if (user.name != null) ...[
                     Center(
                       child: Text(
                         user.name,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: AppColors.textColor),
                       ),
                     ),
                     Center(
                       child: user.admin == false
-                          ? Text(S.of(context).athleteTitleText)
-                          : Text(S.of(context).coachTitleText),
+                          ? Text(
+                              S.of(context).athleteTitleText,
+                              style: TextStyle(color: AppColors.primaryColor),
+                            )
+                          : Text(
+                              S.of(context).coachTitleText,
+                              style: TextStyle(color: AppColors.primaryColor),
+                            ),
                     )
                   ],
                   SizedBox(height: 10.0),
@@ -55,15 +64,33 @@ class UserProfile extends StatelessWidget {
                   color: Theme.of(context).dividerColor,
                   tiles: [
                     ListTile(
-                      leading: Icon(Icons.edit),
-                      title: Text(S.of(context).editProfile),
+                      leading: Icon(
+                        Icons.edit,
+                        color: AppColors.labelColor,
+                      ),
+                      title: Text(
+                        S.of(context).editProfile,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: AppColors.primaryColor,
+                            fontWeight: FontWeight.w400),
+                      ),
                       onTap: () => Navigator.pushNamed(
                           context, AppRoutes.editProfile,
                           arguments: user),
                     ),
                     ListTile(
-                      leading: Icon(Icons.exit_to_app),
-                      title: Text(S.of(context).logoutButtonText),
+                      leading: Icon(
+                        Icons.exit_to_app,
+                        color: AppColors.labelColor,
+                      ),
+                      title: Text(
+                        S.of(context).logoutButtonText,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: AppColors.primaryColor,
+                            fontWeight: FontWeight.w400),
+                      ),
                       onTap: () async {
                         await logEvent(context, AppAnalyticsEvents.logOut);
                         await context.read(userRepoProvider).signOut();
@@ -96,7 +123,7 @@ class UserInfo extends StatelessWidget {
               child: Text(
                 S.of(context).personalInformationLabel,
                 style: TextStyle(
-                  color: Colors.black87,
+                  color: AppColors.primaryColor,
                   fontWeight: FontWeight.w500,
                   fontSize: 16,
                 ),
@@ -104,6 +131,7 @@ class UserInfo extends StatelessWidget {
               ),
             ),
             Card(
+              color: Colors.transparent,
               child: Container(
                 alignment: Alignment.topLeft,
                 padding: EdgeInsets.all(15),
@@ -117,27 +145,66 @@ class UserInfo extends StatelessWidget {
                             ListTile(
                               contentPadding: EdgeInsets.symmetric(
                                   horizontal: 12, vertical: 4),
-                              leading: Icon(Icons.home),
-                              title: Text(S.of(context).addressFieldLabel),
-                              subtitle: Text(user?.address ??
-                                  S.of(context).addressInformationText),
-                            ),
-                            ListTile(
-                              leading: Icon(Icons.email),
-                              title: Text(S.of(context).emailFieldlabel),
-                              subtitle: Text(user?.email),
-                            ),
-                            ListTile(
-                              leading: Icon(Icons.phone),
-                              title: Text(S.of(context).phoneFieldLabel),
-                              subtitle: Text(user?.phone ??
-                                  S.of(context).phoneInformationText),
-                            ),
-                            ListTile(
-                              leading: Icon(Icons.calendar_today),
-                              title: Text(S.of(context).joinedDateLabel),
+                              leading: Icon(
+                                Icons.home,
+                                color: AppColors.labelColor,
+                              ),
+                              title: Text(
+                                S.of(context).addressFieldLabel,
+                                style: TextStyle(color: AppColors.primaryColor),
+                              ),
                               subtitle: Text(
-                                  '${user.registrationDate.day.toString()}-${user.registrationDate.month.toString()}-${user.registrationDate.year.toString()}'),
+                                user?.address ??
+                                    S.of(context).addressInformationText,
+                                style: TextStyle(
+                                    fontSize: 18, color: AppColors.textColor),
+                              ),
+                            ),
+                            ListTile(
+                              leading: Icon(
+                                Icons.email,
+                                color: AppColors.labelColor,
+                              ),
+                              title: Text(
+                                S.of(context).emailFieldlabel,
+                                style: TextStyle(color: AppColors.primaryColor),
+                              ),
+                              subtitle: Text(
+                                user?.email,
+                                style: TextStyle(
+                                    fontSize: 18, color: AppColors.textColor),
+                              ),
+                            ),
+                            ListTile(
+                              leading: Icon(
+                                Icons.phone,
+                                color: AppColors.labelColor,
+                              ),
+                              title: Text(
+                                S.of(context).phoneFieldLabel,
+                                style: TextStyle(color: AppColors.primaryColor),
+                              ),
+                              subtitle: Text(
+                                user?.phone ??
+                                    S.of(context).phoneInformationText,
+                                style: TextStyle(
+                                    fontSize: 18, color: AppColors.textColor),
+                              ),
+                            ),
+                            ListTile(
+                              leading: Icon(
+                                Icons.calendar_today,
+                                color: AppColors.labelColor,
+                              ),
+                              title: Text(
+                                S.of(context).joinedDateLabel,
+                                style: TextStyle(color: AppColors.primaryColor),
+                              ),
+                              subtitle: Text(
+                                '${user.registrationDate.day.toString()}-${user.registrationDate.month.toString()}-${user.registrationDate.year.toString()}',
+                                style: TextStyle(
+                                    fontSize: 18, color: AppColors.textColor),
+                              ),
                             ),
                           ],
                         ),
@@ -207,8 +274,8 @@ class ProfileHeader extends StatelessWidget {
               Avatar(
                 image: avatar,
                 radius: 60,
-                backgroundColor: Colors.white,
-                borderColor: Colors.grey.shade300,
+                backgroundColor: Colors.black54,
+                borderColor: AppColors.primaryColor,
                 borderWidth: 4.0,
               ),
               // Text(

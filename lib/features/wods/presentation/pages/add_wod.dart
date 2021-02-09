@@ -1,4 +1,5 @@
 import 'package:firestore_demo/core/presentation/providers/providers.dart';
+import 'package:firestore_demo/core/presentation/res/colors.dart';
 import 'package:firestore_demo/features/wods/data/services/models/app_wod.dart';
 import 'package:firestore_demo/features/wods/data/services/wod_firestore_service.dart';
 import 'package:firestore_demo/generated/l10n.dart';
@@ -150,7 +151,8 @@ class _AddEventPageState extends State<AddWodPage> {
                     children: [
                       Flexible(
                         child: FormBuilderTextField(
-                          style: TextStyle(color: Colors.grey, fontSize: 20),
+                          style: TextStyle(
+                              color: AppColors.textColor, fontSize: 20),
                           validator: FormBuilderValidators.compose(
                               [FormBuilderValidators.required(context)]),
                           name: 'rounds',
@@ -161,7 +163,7 @@ class _AddEventPageState extends State<AddWodPage> {
                           initialValue: widget.wod?.rounds,
                           decoration: InputDecoration(
                             hintText: 'Rounds',
-                            hintStyle: TextStyle(color: Colors.grey),
+                            hintStyle: TextStyle(color: AppColors.textColor),
                             contentPadding: EdgeInsets.only(left: 30.0),
                           ),
                         ),
@@ -188,7 +190,7 @@ class _AddEventPageState extends State<AddWodPage> {
                           decoration: InputDecoration(
                             hintText: 'Reps',
                             hintStyle: TextStyle(color: Colors.grey),
-                            contentPadding: EdgeInsets.only(left: 28.0),
+                            contentPadding: EdgeInsets.only(left: 38.0),
                           ),
                         ),
                       ),
@@ -196,6 +198,7 @@ class _AddEventPageState extends State<AddWodPage> {
                   ),
                   SizedBox(height: 30),
                   FormBuilderTextField(
+                    style: TextStyle(color: AppColors.textColor, fontSize: 18),
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
                     name: 'weightliftingDescription',
@@ -223,6 +226,7 @@ class _AddEventPageState extends State<AddWodPage> {
                 ),
                 SizedBox(height: 30),
                 FormBuilderTextField(
+                  style: TextStyle(color: AppColors.textColor, fontSize: 18),
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
                   name: 'wodDescription',
@@ -241,6 +245,7 @@ class _AddEventPageState extends State<AddWodPage> {
                 FormBuilderChoiceChip(
                     alignment: WrapAlignment.spaceEvenly,
                     name: 'scoring',
+                    initialValue: widget.wod?.scoring,
                     decoration: InputDecoration(
                         labelText: 'type of scoring?',
                         labelStyle:
@@ -269,6 +274,7 @@ class _AddEventPageState extends State<AddWodPage> {
                 if (visibleExtra) ...[
                   SizedBox(height: 30),
                   FormBuilderTextField(
+                    style: TextStyle(color: AppColors.textColor, fontSize: 18),
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
                     name: 'extrasDescription',

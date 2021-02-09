@@ -8,7 +8,7 @@ class AppThemes {
   static final ThemeData defaultTheme = ThemeData(
     scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
     primaryColor: AppColors.primaryColor,
-    accentColor: AppColors.accentColor,
+    accentColor: AppColors.primaryColor,
     primarySwatch: Colors.red,
     buttonColor: AppColors.primaryColor,
     appBarTheme: AppBarTheme(

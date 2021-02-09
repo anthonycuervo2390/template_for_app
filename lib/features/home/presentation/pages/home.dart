@@ -19,8 +19,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   CalendarController _calendarController = CalendarController();
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
-  final Color primary = Color(0xff291747);
-  final Color active = Color(0xff6C48AB);
   //TODO: para poder pasar eventos dinamicamente necesitamos convertir la lista de wods de firestore a MAP
   Map<DateTime, List<AppWod>> _groupedWods;
   @override
@@ -63,7 +61,7 @@ class _HomePageState extends State<HomePage> {
             )
           ],
         ),
-        drawer: BuildDrawer(primary: primary, active: active),
+        drawer: BuildDrawer(),
         body: SingleChildScrollView(
           child: StreamBuilder(
             //========SI QUISIERAMOS QUE EL USUARIO VEA SOLO EL EVENTO QUE EL CREO Y QUE NADIE MAS LO VEA======//
@@ -118,6 +116,16 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
+                    ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes.addResult,
+                            arguments: selectedDate,
+                          );
+                        },
+                        icon: Icon(Icons.description),
+                        label: Text('Add Results')),
                     ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
@@ -126,6 +134,11 @@ class _HomePageState extends State<HomePage> {
                         AppWod wod = _selectedWods[index];
                         return Column(
                           children: [
+                            Text(
+                              DateFormat('EEEE, d MMM yyyy').format(wod.date),
+                              style: TextStyle(
+                                  fontSize: 24, color: AppColors.labelColor),
+                            ),
                             if (wod.weightliftingMovement != null &&
                                 wod.weightliftingDescription != null &&
                                 wod.rounds != null &&
@@ -152,8 +165,8 @@ class _HomePageState extends State<HomePage> {
                                               onPressed: () {
                                                 Navigator.pushNamed(
                                                   context,
-                                                  AppRoutes.addResult,
-                                                  arguments: selectedDate,
+                                                  AppRoutes.viewWod,
+                                                  arguments: wod,
                                                 );
                                               },
                                             ),
@@ -187,20 +200,6 @@ class _HomePageState extends State<HomePage> {
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
-                                    subtitle: (Center(
-                                      child: Text(DateFormat('EEE, d/M/y')
-                                          .format(wod.date)),
-                                    )),
-                                    trailing: user.admin == false
-                                        ? null
-                                        : IconButton(
-                                            icon: Icon(Icons.edit),
-                                            onPressed: () {
-                                              Navigator.pushNamed(
-                                                  context, AppRoutes.viewWod,
-                                                  arguments: wod);
-                                            },
-                                          ),
                                   ),
                                   Padding(
                                     padding: EdgeInsets.all(16.0),
@@ -231,16 +230,6 @@ class _HomePageState extends State<HomePage> {
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
-                                      trailing: user.admin == false
-                                          ? null
-                                          : IconButton(
-                                              icon: Icon(Icons.edit),
-                                              onPressed: () {
-                                                Navigator.pushNamed(
-                                                    context, AppRoutes.viewWod,
-                                                    arguments: wod);
-                                              },
-                                            ),
                                     ),
                                     Padding(
                                       padding: EdgeInsets.all(16.0),

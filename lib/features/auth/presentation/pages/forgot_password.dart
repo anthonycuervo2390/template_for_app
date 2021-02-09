@@ -1,4 +1,5 @@
 import 'package:firestore_demo/core/presentation/providers/providers.dart';
+import 'package:firestore_demo/core/presentation/res/colors.dart';
 import 'package:firestore_demo/features/auth/presentation/widgets/login_form.dart';
 import 'package:firestore_demo/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class _ResetPasswordState extends State<ResetPassword> {
       resizeToAvoidBottomPadding: true,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        backgroundColor: Color(0xff161d27),
+        backgroundColor: AppColors.scaffoldBackgroundColor,
       ),
       body: Consumer(builder: (context, watch, _) {
         return Container(
@@ -55,7 +56,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                 TextSpan(
                                   text: S.of(context).resetPasswordTitleText,
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: AppColors.labelColor,
                                       fontSize: 38,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -90,7 +91,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                   width: double.infinity,
                   margin: EdgeInsets.only(left: 40, right: 40),
                   child: FlatButton(
-                    color: Colors.redAccent,
+                    color: AppColors.buttonColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
@@ -100,7 +101,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                     child: Text(
                       S.of(context).sendPasswordButtonText,
                       style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.labelColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 16),
                     ),
@@ -130,7 +131,7 @@ class _ResetPasswordState extends State<ResetPassword> {
           context: context,
           builder: (context) {
             return AlertDialog(
-              backgroundColor: Color(0xff161d27),
+              backgroundColor: AppColors.scaffoldBackgroundColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
@@ -146,7 +147,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                     Text(
                       'ERROR',
                       style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.labelColor,
                           fontSize: 38,
                           fontWeight: FontWeight.bold),
                     ),
@@ -192,7 +193,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                     Text(
                       'Success',
                       style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.labelColor,
                           fontSize: 38,
                           fontWeight: FontWeight.bold),
                     ),
